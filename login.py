@@ -26,5 +26,3 @@ def send():
 	e = ses.post(j["url"]["message"],headers = j["headers"],data = j["message"])
 
 	e = ses.get(j["url"]["logout"],headers = j["headers"],params = j["logout"])
-	print(e.text)
-	print(e.url)
