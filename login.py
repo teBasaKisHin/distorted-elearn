@@ -10,19 +10,22 @@ def send():
 	e = ses.post(j["url"]["login"],headers = j["headers"],data = j["login"])	
 	j["message"]["sesskey"] = identify.sessGet(e.text)	
 	j["logout"]["sesskey"] = j["message"]["sesskey"]	
-	mesg = input("message : ")
 	
-	getter = 0
 	while 1:
-		if getter > 41 or getter < 1:
-			getter = int(input("Who to send?(number)"))
-		else:
+		mesg = input("message(exit is \"q\"): ")
+		if (mesg == 'q'):
 			break
 	
-	j["message"]["message"] = mesg
-	j["message"]["id"] = str(getter + 211) 
-	j["message"]["sesskey"] = identify.sessGet(e.text)
+		getter = int(input("Who to send?(number)"))
+		while 1:
+			if (getter <= 41) and (getter > 0):
+				break
+			else:
+				getter = int(input("Who to send?(number)"))
 	
-	e = ses.post(j["url"]["message"],headers = j["headers"],data = j["message"])
+		j["message"]["message"] = mesg
+		j["message"]["id"] = str(getter + 211) 
+	
+		e = ses.post(j["url"]["message"],headers = j["headers"],data = j["message"])
 
 	e = ses.get(j["url"]["logout"],headers = j["headers"],params = j["logout"])
