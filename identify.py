@@ -1,7 +1,7 @@
 def suc(text):
 	import re
 	if re.search(r"ログインしています",text):
-		return 1
+		pass
 	else:
 		print("failed")
 
