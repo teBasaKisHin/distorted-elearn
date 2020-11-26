@@ -45,4 +45,5 @@ if __name__ == '__main__':
 
         if kenon_id is not None:
             res = kenon_submit(ss, kenon_id)
+            print('Submitted.')
 
