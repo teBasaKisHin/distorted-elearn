@@ -21,17 +21,28 @@ def getIdof(session, keyword):
 
 
 def kenon_submit(session, idx):
-    pass
+    res = session.get(st.url['input']+idx, headers=st.headers)
+    soup = BeautifulSoup(res.text, 'html.parser')
+
+    payload = dict()
+
+    for e in soup.find_all('select'):
+        payload[e.get('name')] = '1'
+
+    for e in soup.find_all('input'):
+        payload[e.get('name')] = e.get('value')
+    
+    return session.post(st.url['submit'], payload, headers=st.headers)
 
 
 if __name__ == '__main__':
     with requests.Session() as ss:
-        res = login(ss)
+        login(ss)
         
         today = datetime.date.today()
         keyword = '{}/{}検温'.format(today.month, today.day)
         kenon_id = getIdof(ss, keyword)
-        print(kenon_id)
 
-        kenon_submit(session, kenon_id)
+        if kenon_id is not None:
+            res = kenon_submit(ss, kenon_id)
 
