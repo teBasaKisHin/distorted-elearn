@@ -1,23 +1,37 @@
+import os
 import datetime
 import requests
 from bs4 import BeautifulSoup
 
-import settings as st
-
+try:
+    import settings as st
+except ModuleNotFoundError:
+    import sample_settings as st
+    st.payload['login']['username'] = os.environ['USERNAME']
+    st.payload['login']['password'] = os.environ['PASSWORD']
 
 
 def login(session):
     return session.post(st.url['login'], st.payload['login'], headers=st.headers)
 
 
-def getIdof(session, keyword):
+def getTodayId(session):
     res = session.get(st.url['date_list'], headers=st.headers)
     soup = BeautifulSoup(res.text, 'html.parser')
+
+    today = datetime.date.today()
+    keyword = '{}/{}検温'.format(today.month, today.day)
 
     for e in soup.find_all(class_='activityinstance')[1:]:
         if keyword in e.find('span').text:
             return e.find('a').get('href').split('=')[-1]
     return None
+
+
+def hasSubmitted(session, idx):
+    res = ss.get(st.url['input']+idx, headers=st.headers)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    return soup.find('input').get('value') == '続ける'
 
 
 def kenon_submit(session, idx):
@@ -38,12 +52,10 @@ def kenon_submit(session, idx):
 if __name__ == '__main__':
     with requests.Session() as ss:
         login(ss)
-        
-        today = datetime.date.today()
-        keyword = '{}/{}検温'.format(today.month, today.day)
-        kenon_id = getIdof(ss, keyword)
 
-        if kenon_id is not None:
-            res = kenon_submit(ss, kenon_id)
+        kenon_id = getTodayId(ss)
+
+        if not hasSubmitted(ss, kenon_id):
+            kenon_submit(ss, kenon_id)
             print('Submitted.')
 
