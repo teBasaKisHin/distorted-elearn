@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
         kenon_id = getTodayId(ss)
 
-        if not hasSubmitted(ss, kenon_id):
+        #if not hasSubmitted(ss, kenon_id):
+        if True:
             kenon_submit(ss, kenon_id)
             print('Submitted.')
 
