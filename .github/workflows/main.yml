@@ -2,7 +2,7 @@ name: main
 
 on:
   schedule:
-    - cron: '0 0 * * 1,2,3,4,5'
+    - cron: '0 23 * * 0,1,2,3,4'
   workflow_dispatch:
 
 jobs:
