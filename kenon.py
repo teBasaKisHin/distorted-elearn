@@ -18,8 +18,11 @@ def login(session):
 def getTodayId(session):
     res = session.get(st.url['date_list'], headers=st.headers)
     soup = BeautifulSoup(res.text, 'html.parser')
+    
+    dt_now_jst = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
 
-    today = datetime.date.today()
+    # today = datetime.date.today()
+    today = dt_now_jst.today()
     keyword = '{}/{}検温'.format(today.month, today.day)
 
     for e in soup.find_all(class_='activityinstance')[1:]:
