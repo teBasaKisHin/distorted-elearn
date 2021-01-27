@@ -23,8 +23,7 @@ def getTodayId(session):
 
     # today = datetime.date.today()
     today = dt_now_jst.today()
-    keyword = '{}/{}検温'.format(today.month, today.day)
-    print(keyword)
+    keyword = '{}/{}'.format(today.month, today.day)
     for e in soup.find_all(class_='activityinstance')[1:]:
         if keyword in e.find('span').text:
             return e.find('a').get('href').split('=')[-1]
