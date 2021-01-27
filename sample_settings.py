@@ -1,8 +1,8 @@
 url = {
-    'login': 'https://e-mdl.kure-nct.ac.jp/login/index.php',
-    'date_list': 'https://e-mdl.kure-nct.ac.jp/course/view.php?id=599',
-    'input': 'https://e-mdl.kure-nct.ac.jp/mod/feedback/complete.php?courseid&gopage=0&id=',
-    'submit': 'https://e-mdl.kure-nct.ac.jp/mod/feedback/complete.php'
+    'login': 'https://k-mdl01.kure-nct.ac.jp/login/index.php',
+    'date_list': 'https://k-mdl01.kure-nct.ac.jp/course/view.php?id=6',
+    'input': 'https://k-mdl01.kure-nct.ac.jp/mod/feedback/complete.php?courseid&gopage=0&id=',
+    'submit': 'https://k-mdl01.kure-nct.ac.jp/mod/feedback/complete.php?'
 }
 
 payload = {
