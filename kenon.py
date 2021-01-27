@@ -19,11 +19,11 @@ def getTodayId(session):
     res = session.get(st.url['date_list'], headers=st.headers)
     soup = BeautifulSoup(res.text, 'html.parser')
     
-    dt_now_jst = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+#     dt_now_jst = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
 
-    # today = datetime.date.today()
-    today = dt_now_jst.today()
-    keyword = '{}/{}'.format(today.month, today.day)
+    today = datetime.date.today()
+#     today = dt_now_jst.today()
+    keyword = '{}/{}'.format(today.month, today.day+1)
     for e in soup.find_all(class_='activityinstance')[1:]:
         if keyword in e.find('span').text:
             return e.find('a').get('href').split('=')[-1]
