@@ -24,7 +24,7 @@ def getTodayId(session):
     # today = datetime.date.today()
     today = dt_now_jst.today()
     keyword = '{}/{}検温'.format(today.month, today.day)
-
+    print(keyword)
     for e in soup.find_all(class_='activityinstance')[1:]:
         if keyword in e.find('span').text:
             return e.find('a').get('href').split('=')[-1]
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         login(ss)
 
         kenon_id = getTodayId(ss)
-
+        
         #if not hasSubmitted(ss, kenon_id):
         if True:
             kenon_submit(ss, kenon_id)
